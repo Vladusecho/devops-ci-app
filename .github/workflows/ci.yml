@@ -137,7 +137,7 @@ jobs:
       group: deploy-devops-vm
       cancel-in-progress: false
     env:
-      VM_HOST: 192.168.56.2
+      VM_HOST: 192.168.67.2
     steps:
       - name: Checkout
         uses: actions/checkout@v7
