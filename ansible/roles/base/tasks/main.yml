@@ -32,16 +32,21 @@
     signed_by: https://download.docker.com/linux/ubuntu/gpg
     state: present
 
+- name: Refresh apt cache (best-effort, bounded)
+  ansible.builtin.command:
+    cmd: >-
+      timeout 60 apt-get update -qq
+      -o Acquire::Retries=0
+      -o Acquire::http::Timeout=10
+  become: true
+  changed_when: false
+  failed_when: false
+
 - name: Install Docker Engine
   ansible.builtin.apt:
-    name:
-      - docker-ce
-      - docker-ce-cli
-      - containerd.io
-      - docker-buildx-plugin
-      - docker-compose-plugin
+    name: docker-ce
     state: present
-    update_cache: true
+  become: true
 
 - name: Enable Docker service
   ansible.builtin.service:
