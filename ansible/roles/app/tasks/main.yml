@@ -11,6 +11,7 @@
     tag: "{{ app_tag }}"
     source: pull
     state: present
+    platform: linux/amd64
 
 - name: Run application container
   community.docker.docker_container:
@@ -20,6 +21,7 @@
     restart_policy: unless-stopped
     published_ports:
       - "127.0.0.1:{{ app_host_port }}:{{ app_internal_port }}"
+    platform: linux/amd64
 
 - name: Wait for application health
   ansible.builtin.uri:
